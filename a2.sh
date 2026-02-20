@@ -1,14 +1,12 @@
 #Menu for job pending and request 
-
 print_menu() {
     echo "View Pending Job"
     echo "Submit Job request"
-    echo "Process Job"
+    echo "Job list"
+    echo "Job Queue"
+    echo "Completed Job"
     echo "Exit"
 }
-
-
-
 
 
 #View job
@@ -19,13 +17,18 @@ Job_View() {
     read -rp "Enter Execution Time: " rp3
     read -rp "Enter Priority time: " rp4
 
+    #condition if user enter wrong number
     if [[ "$rp4" -lt 1 || "$rp4" -gt 10 ]]; then
         echo "Invalid response"
     else
     printf "%s\n" "$rp1, $rp2, $rp3, $rp4" >> "job_pending.txt"
-    sudo cat /workspaces/advos1/job_pending.txt 
+    sudo cat /workspaces/advos1/job_pending.txt
+    #For function of storing job 
     fi
+        
+    
 }
+
 
 Job_request() {
     #When Output request for a Job, it stores on text
@@ -34,11 +37,39 @@ Job_request() {
     echo "Job has been requested" #Test when output is sent
 }
 
-Job_queue() {
+#Sort file (Jobs)
+Job_listed() {
 
-    printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "job_queue.txt"
+echo "Job view sorted"
+
+sort -t ',' -k4,4n /workspaces/advos1/job_pending.txt #sorting method priority
+
+echo "Processing task" 
+sleep 2 #Pausing task
+echo "Processing done"
+Job_schedule "Job data stored"
 
 }
+
+#Storing data of Job that is currently pending
+Job_queue() {
+
+    echo "Job in queue"
+    sudo cat /workspaces/advos1/job_queue.txt
+
+}
+
+#Logged job when user enters studentid, priority time, etc.
+Job_schedule() {
+local job_message=$1
+printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$job_message" >> "scheduler_log.txt"
+
+}
+
+Job_completed() {
+    mv /workspaces/advos1/job_pending.txt /workspaces/advos1/completed_jobs.txt
+}
+
 
 Exit() {
 
@@ -60,8 +91,10 @@ read -r -p "Select option: " choice
 case "$choice" in 
     1) Job_View ;;
     2) Job_request ;;
-    3) Job_queue ;;
-    4) Exit ;;
+    3) Job_listed ;;
+    4) Job_queue ;;
+    5) Job_completed ;;
+    6) Exit ;;
     *) echo "Please try again" ;;
     esac
     echo
