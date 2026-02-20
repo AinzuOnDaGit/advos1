@@ -7,11 +7,31 @@ print_menu() {
     echo "Exit"
 }
 
+
+
+
+
 #View job
 Job_View() {
-    #Input for User in StudentID 
-    read -rp "Search up Job: " 
+    #Input for User in Job StudentID, Job name, etc.
+    read -rp "Enter StudentID: " rp1
+    read -rp "Enter Job Name: " rp2
+    read -rp "Enter Execution Time: " rp3
+    read -rp "Enter Priority time: " rp4
 
+    if [[ "$rp4" -lt 1 || "$rp4" -gt 10 ]]; then
+        echo "Invalid response"
+    else
+    printf "%s\n" "$rp1, $rp2, $rp3, $rp4" >> "job_pending.txt"
+    sudo cat /workspaces/advos1/job_pending.txt 
+    fi
+}
+
+Job_request() {
+    #When Output request for a Job, it stores on text
+    read -rp "Request Job here: " ans1
+        printf "$ans1" >> "job_request.txt"
+    echo "Job has been requested" #Test when output is sent
 }
 
 Job_queue() {
