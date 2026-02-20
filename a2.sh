@@ -17,8 +17,12 @@ Job_View() {
     read -rp "Enter Execution Time: " rp3
     read -rp "Enter Priority time: " rp4
 
+    #condition if user didn't enter StudentID
+    if [[ -z "$rp1" || -z "$rp2" || -z "$rp3" ]]; then
+    echo "Invalid response" 
+
     #condition if user enter wrong number
-    if [[ "$rp4" -lt 1 || "$rp4" -gt 10 ]]; then
+    elif [[ "$rp4" -lt 1 || "$rp4" -gt 10 ]]; then
         echo "Invalid response"
     else
     printf "%s\n" "$rp1, $rp2, $rp3, $rp4" >> "job_pending.txt"
@@ -32,8 +36,13 @@ Job_View() {
 Job_request() {
     #When Output request for a Job, it stores on text
     read -rp "Request Job here: " ans1
+    if [[ -z "$ans1" ]]; then
+    echo "Please enter Job request!!"
+    else
         printf "$ans1" >> "job_request.txt"
     echo "Job has been requested" #Test when output is sent
+    fi
+
 }
 
 #Sort file (Jobs)
