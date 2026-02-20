@@ -9,9 +9,16 @@ print_menu() {
 
 #View job
 Job_View() {
-    echo "hi"
+    #Input for User in StudentID 
+    read -rp "Search up Job: " 
+
 }
 
+Job_queue() {
+
+    printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "job_queue.txt"
+
+}
 
 Exit() {
 
