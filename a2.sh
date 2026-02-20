@@ -9,6 +9,7 @@ print_menu() {
 
 #View job
 Job_View() {
+    echo "hi"
 }
 
 
