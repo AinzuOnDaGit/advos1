@@ -66,8 +66,9 @@ printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$job_message" >> "scheduler_l
 
 }
 
+#When Pending Job completed, option for Job completed will move to another text file
 Job_completed() {
-    mv /workspaces/advos1/job_pending.txt /workspaces/advos1/completed_jobs.txt
+    mv /workspaces/advos1/job_pending.txt /workspaces/advos1/completed_jobs.txt 
 }
 
 
