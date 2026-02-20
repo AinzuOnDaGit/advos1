@@ -25,7 +25,6 @@ Job_View() {
     sudo cat /workspaces/advos1/job_pending.txt
     #For function of storing job 
     fi
-        
     
 }
 
