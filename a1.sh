@@ -25,7 +25,7 @@ disk() {
     df -h
     read -rp "Detect log files larger than 50MB?: " ans1
     if [[ "$ans1" = "yes" ]]; then
-    sudo find /workspaces/advos1 -type f -name "*.log" -size +1c #Detect large file more than 50MB
+    sudo find /workspaces/advos1 -type f -name "*.log" -size +50M #Detect large file more than 50MB
     fi
 
     log_event "Disk Viewed saved"
@@ -90,7 +90,7 @@ ArchiveLogs () {
     zip file1.zip file1.log 
 
     #File archive if exceed to 1GB
-    size1 = $(du -sm /workspaces/advos1/ArchiveLogs | cut -f 1)
+    size1=$(du -sm /workspaces/advos1/ArchiveLogs | cut -f 1)
     if [[ "$size1" -gt 1000 ]]; then
     echo "Warning!! File size is larger than 1GB"
     else
