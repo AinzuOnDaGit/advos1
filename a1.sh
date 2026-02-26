@@ -21,16 +21,6 @@ CPU() {
 
 }
 
-disk() {
-    df -h
-    read -rp "Detect log files larger than 50MB?: " ans1
-    if [[ "$ans1" = "yes" ]]; then
-    sudo find /workspaces/advos1 -type f -name "*.log" -size +50M #Detect large file more than 50MB
-    fi
-
-    log_event "Disk Viewed saved"
-
-}
 
 #terminating PID
 term1() {
@@ -63,22 +53,17 @@ term1() {
     fi
 }
 
-Exit() {
-    read -rp "Do you wish to exit? (Type Y or N): " exs 
-    if [[ "$exs" = "Y" || "$exs" = "y" ]]; then
-    log_event "Terminated viewed saved"
-    kill $$
-    fi 
-
-    if [[ "$exs" = "N" || "$exs" = "n" ]]; then
-    log_event "Continue Log saved"
-
-    echo "Continue"
+disk() {
+    df -h
+    read -rp "Detect log files larger than 50MB?: " ans1
+    if [[ "$ans1" = "yes" ]]; then
+    sudo find /workspaces/advos1 -type f -name "*.log" -size +50M #Detect large file more than 50MB
     fi
 
-
+    log_event "Disk Viewed saved"
 
 }
+
 
 
 #Archive Files logs created
@@ -104,8 +89,29 @@ printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "system_monitor_log.
 
 }
 
+Exit() {
+    read -rp "Do you wish to exit? (Type Y or N): " exs 
+
+    if [[ "$exs" != [Yy] && "$exs" != [Nn] ]]; then
+    echo "Please Enter Y or N!!"
+    log_event "Condition not answered"
+    Exit #If condition not Y or N, calls function back
+    
+    elif [[ "$exs" = "Y" || "$exs" = "y" ]]; then
+    log_event "Terminated viewed saved"
+    kill $$
+    fi 
+
+    if [[ "$exs" = "N" || "$exs" = "n" ]]; then
+    log_event "Continue Log saved"
+    fi
+
+    echo "Continue"
+
+}
 
 
+echo "University Data Centre Please choose option"
 #Loop When user type option
 main_loop() {
 
