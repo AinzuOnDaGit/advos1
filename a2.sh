@@ -82,8 +82,12 @@ Job_completed() {
 
 Exit() {
 
-    read -rp "Do you wish to exit? (Type Y or N): " exs 
-        if [[ "$exs" = "Y" || "$exs" = "y" ]]; then
+        read -rp "Do you wish to exit? (Type Y or N): " exs 
+        if [[ "$exs" != [Yy] && "$exs" != [Nn] ]]; then
+        echo "Please Enter Y or N!!"
+        Exit #If condition not Y or N, calls function back
+
+        elif [[ "$exs" = "Y" || "$exs" = "y" ]]; then
         kill $$
         fi 
 

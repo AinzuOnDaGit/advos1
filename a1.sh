@@ -96,6 +96,11 @@ Exit() {
     echo "Please Enter Y or N!!"
     log_event "Condition not answered"
     Exit #If condition not Y or N, calls function back
+
+    elif [[ "$exs" != [Yy] && "$exs" != [Nn] ]]; then
+    echo "Please Enter Y or N!!"
+    log_event "Condition not answered"
+    Exit #If condition not Y or N, calls function back
     
     elif [[ "$exs" = "Y" || "$exs" = "y" ]]; then
     log_event "Terminated viewed saved"
