@@ -20,16 +20,17 @@ Job_View() {
     #condition if user didn't enter StudentID
     if [[ -z "$rp1" || -z "$rp2" || -z "$rp3" ]]; then
     echo "Invalid response" 
+    Job_View
 
     #condition if user enter wrong number
     elif [[ "$rp4" -lt 1 || "$rp4" -gt 10 ]]; then
         echo "Invalid response"
     else
     printf "%s\n" "$rp1, $rp2, $rp3, $rp4" >> "job_pending.txt"
+    echo "List of Job: " #Title of Job before viewing the list
     sudo cat /workspaces/advos1/job_pending.txt
     #For function of storing job 
     fi
-    
 }
 
 
@@ -62,9 +63,15 @@ Job_schedule "Job data stored"
 #Storing data of Job that is currently pending
 Job_queue() {
 
+    read -rp "Enter Job to be in queue: " jbq #Enter Job queue to be sent to Job_queue text file
+    if [[ -z "$jbq" ]]; then
+    echo "Invalid Response"
+    else
     echo "Job in queue"
-    sudo cat /workspaces/advos1/job_queue.txt
+    printf "%s\n" "$jbq" >> job_queue.txt #any Job that is responded will be added in the Job_queue text file
 
+    sudo cat /workspaces/advos1/job_queue.txt #View Job queue list
+    fi
 }
 
 #Logged job when user enters studentid, priority time, etc.
@@ -76,6 +83,7 @@ printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$job_message" >> "scheduler_l
 
 #When Pending Job completed, option for Job completed will move to another text file
 Job_completed() {
+    echo "Job successfully completed!!!"
     mv /workspaces/advos1/job_pending.txt /workspaces/advos1/completed_jobs.txt 
 }
 
@@ -97,6 +105,9 @@ Exit() {
         fi
 }
 
+
+echo "Welcome, Please enter request Schedule: 
+===================="
 main_loop () {
 while true; do
 print_menu
