@@ -1,4 +1,7 @@
 #Printing process
+echo "===============
+Data search
+==============="
 print_menu() {
     echo "PID"
     echo "CPU"
@@ -16,7 +19,7 @@ PID() {
 } 
 
 CPU() {
-    top
+    top #Display CPU 
     log_event "Viewed CPU saved"
 
 }
