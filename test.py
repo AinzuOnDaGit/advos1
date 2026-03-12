@@ -1,11 +1,8 @@
-def exmd1():
-    ex1 = input("Do you wish to exit? Press Y or N: ").islower()
-    if ex1 == "y":
-        print("Simulation exit")
-        quit()        
-
-    elif ex1 == "n":
-        print("Continue simulation")
-    else:
-        print("Invalid choice")
-exmd1()
+# import OS module
+import os
+# Get the list of all files and directories
+path = "/workspaces/advos1/assignments" 
+dir_list = os.listdir(path)
+print("Files and directories in '", path, "' :")
+# prints all files
+print(dir_list)
