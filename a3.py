@@ -3,6 +3,7 @@ import time #Countdown
 import logging #Log timestamp
 import shutil #Move file to directory
 
+
 def asgn1():
     sm1 = input("Submit name file here: ")
     text_file = open("assignment_sent.txt", "a")
@@ -10,6 +11,10 @@ def asgn1():
     text_file.write(sm1)
     text_file.close
 
+def asgn2(): #Check all submission
+    file_read = open("assignments/assignment_sent.txt", "r")
+    print(file_read.read())
+	
 
 def log1(num=3):
 
@@ -26,31 +31,48 @@ def log1(num=3):
             break
         else:
             num -= 1 
-            print(f"Wrong Password {num} Tries left")
+            print(f"Wrong Password {num} Tries left") #Attempt if user gets code wrong
         
         if num == 0:
             print("Try again") if num else print("Too many wrong attempts. You are locked out!")
             time.sleep(60)
-            logging.basicConfig(format='%(asctime)s %(message)s')
+            logging.basicConfig(format='%(asctime)s %(message)s') 
             logging.warning("Login Attempt Failed")
             sys.exit
 
+def exmd1():
+    ex1 = input("Do you wish to exit? Press Y or N: ").lower()
+    if ex1 == "y":
+        print("Simulation exit")
+        quit()        
+
+    elif ex1== "n":
+        print("Continue simulation")
+        main_menu()
+    else:
+        print("Please enter Y or N")
+        exmd1()
 
 def main_menu():
     print("Welcome please enter choice: ")
-    print("1. Login simulation")
-    print("2. Submission")
-
+    print("1. Submission")
+    print("2. Check submitted files")
+    print("3. Login simulation")
+    print("4. Exit")
 
     while True:
         model = input("Enter choice: ")
         if model == "1":
-            log1()
-            break
-        elif model == "2":
             asgn1()
             break
-
+        elif model == "2":
+            asgn2()
+            break
+        elif model == "3": 
+            log1()
+            break
+        elif model == "4": 
+            exmd1()
         else:
             print("Invalid choice")
         
