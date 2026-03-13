@@ -3,7 +3,7 @@ import time #Countdown
 import logging #Log timestamp
 import shutil #Move file to directory
 import os #Operating system on files 
-
+import filecmp #Detect file content of work
 
 #Logging time stamps and message 
 def data_log():
@@ -45,6 +45,8 @@ def file_detect(): #Detection file
         print("ERROR!!! File has same name, send again")
         return
     
+    
+
     #If file doesn't exist on folder
     if not os.path.isfile(fd_join):
         print("FILE DOES NOT EXIST, TRY AGAIN")     
