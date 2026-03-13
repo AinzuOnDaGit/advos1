@@ -2,7 +2,6 @@ import sys #system exit
 import time #Countdown
 import logging #Log timestamp
 import shutil #Move file to directory
-import fleep #Using a detection of PDF 
 import os
 
 def asgn1():
