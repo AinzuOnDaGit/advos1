@@ -2,7 +2,15 @@ import sys #system exit
 import time #Countdown
 import logging #Log timestamp
 import shutil #Move file to directory
-import os
+import os #Operating system on files 
+
+
+#Logging time stamps and message 
+def data_log():
+    logging.basicConfig(filename="submission_log.txt", 
+        level=logging.INFO,
+        format='%(asctime)s %(message)s')
+    
 
 def asgn1():
     file_input = input("Enter the name of the file, with the extension. Example: file1.pdf: ") #Finding Document on file
@@ -32,6 +40,11 @@ def file_detect(): #Detection file
     fd_join = os.path.join(fdpath, fdcheck) 
     ex_path = os.path.splitext(fd_join)[1].lower()
     
+    # File and content (If copied the same)
+    if os.path.isfile(fd_join):
+        print("ERROR!!! File has same name, send again")
+        return
+    
     #If file doesn't exist on folder
     if not os.path.isfile(fd_join):
         print("FILE DOES NOT EXIST, TRY AGAIN")     
@@ -45,7 +58,6 @@ def file_detect(): #Detection file
         if fd_size > 5000000:
             print("FILE SIZE LARGE, Must be lower than 5MB")
             return
-    
 
 
     # DETECTION IF FILE IS PDF OR DOCX 
@@ -63,7 +75,6 @@ def file_detect(): #Detection file
 
 
 
-
 def log1(num=3):
 
     user1 = input("Enter Username: ") #User name entering
@@ -74,7 +85,7 @@ def log1(num=3):
         user2 = input("Enter Password: ")
         if user2 == "p455w0rd1!":
             print("Granted")
-            logging.basicConfig(format='%(asctime)s %(message)s')
+            data_log()
             logging.warning("Login Attempt success")
             break
         else:
@@ -84,7 +95,7 @@ def log1(num=3):
         if num == 0:
             print("Try again") if num else print("Too many wrong attempts. You are locked out!")
             time.sleep(60)
-            logging.basicConfig(format='%(asctime)s %(message)s') #Logged message
+            data_log()
             logging.warning("Login Attempt Failed")
             sys.exit #System code quits when login failed
 
