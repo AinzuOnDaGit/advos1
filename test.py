@@ -1,8 +1,11 @@
-# import OS module
-import os
-# Get the list of all files and directories
-path = "/workspaces/advos1/assignments" 
-dir_list = os.listdir(path)
-print("Files and directories in '", path, "' :")
-# prints all files
-print(dir_list)
+import logging
+
+# Configure the logger
+logging.basicConfig(
+    filename='app.log',               # Specify the log file name
+    level=logging.INFO,               # Set the logging level to INFO
+    format='%(asctime)s - %(levelname)s - %(message)s'  # Define the log message format
+)
+
+# Write an informational log message
+logging.info('This is an informational message')

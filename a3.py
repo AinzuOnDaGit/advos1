@@ -84,16 +84,16 @@ def log1(num=3):
         if num == 0:
             print("Try again") if num else print("Too many wrong attempts. You are locked out!")
             time.sleep(60)
-            logging.basicConfig(format='%(asctime)s %(message)s') 
+            logging.basicConfig(format='%(asctime)s %(message)s') #Logged message
             logging.warning("Login Attempt Failed")
-            sys.exit
+            sys.exit #System code quits when login failed
 
 #Exit Function
 def exmd1():
-    ex1 = input("Do you wish to exit? Press Y or N: ").lower()
+    ex1 = input("Do you wish to exit? Press Y or N: ").lower() #uses both case of Y/y or N/n
     if ex1 == "y":
         print("Simulation exit")
-        quit()        
+        quit() #Quits program (run again to start simulation)        
 
     elif ex1== "n":
         print("Continue simulation")
@@ -102,9 +102,10 @@ def exmd1():
         print("Please enter Y or N")
         exmd1()
 
-
+#Main menu 
 def main_menu():
-    print("Welcome please enter choice: ")
+    print("Secure Examination Submission and Access Control System Bash and Python ENTER OPTION: ")
+    print("====================================================================================")
     print("1. Submission")
     print("2. Check submitted files")
     print("3. File detection")
