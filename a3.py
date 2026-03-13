@@ -6,8 +6,8 @@ import fleep #Using a detection of PDF
 import os
 
 def asgn1():
-    file_input = input("Enter the name of the file, with the extention. Example: file1.pdf: ")
-    path = "/workspaces/advos1/"
+    file_input = input("Enter the name of the file, with the extention. Example: file1.pdf: ").strip()
+    path = "/workspaces/advos1"
     full_path = os.path.join(path, file_input)
     shutil.move(full_path, "/workspaces/advos1/assignments")
 
