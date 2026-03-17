@@ -20,10 +20,13 @@ def asgn1():
     #If file exist, will be sent on the folder
     if os.path.isfile(full_path):
         shutil.move(full_path, "/workspaces/advos1/assignments") #Moving the existed file into a folder
-    
+        data_log()
+        logging.warning("Work submitted")
     #If file doesn't exist, Message invalid choice
     else: 
         print("Invalid, Try again")
+        data_log()
+        logging.warning("File not submitted")
 
 
 def asgn2(): #Check all submission
@@ -36,15 +39,34 @@ def asgn2(): #Check all submission
 
 def file_detect(): #Detection file
     fdcheck = input("Submit a file here: File must be .PDF or .DOCX: ")
-    fdpath = "/workspaces/advos1"
-    fd_join = os.path.join(fdpath, fdcheck) 
-    ex_path = os.path.splitext(fd_join)[1].lower()
     
-    # File and content (If copied the same)
+    fdpath = "/workspaces/advos1"
+    path_content = "/workspaces/advos1/assignments"
+
+    fd_join = os.path.join(fdpath, fdcheck) 
+
+    ex_path = os.path.splitext(fd_join)[1].lower() #ex1 = existing file [1] using the .pdf/docx
+    
+
+    #Detection of file content in Assignment folder
+    for ex2_file in os.listdir(path_content): #Ex2 = existing content
+        ex_content1 = os.path.join(path_content, ex2_file)
+
+        if os.path.isfile(ex_content1):
+            if filecmp.cmp(fd_join, ex_content1, shallow=False):
+                print("ERROR!!! File with same content already exists")
+                data_log()
+                logging.warning("Duplicate file content detected")
+                return
+
+
+
+    # File If copied the same
     if os.path.isfile(fd_join):
         print("ERROR!!! File has same name, send again")
+        data_log()
+        logging.warning("Existed File in Folder")
         return
-    
     
 
     #If file doesn't exist on folder
@@ -66,14 +88,21 @@ def file_detect(): #Detection file
     if ex_path == ".pdf": 
         print("FILE DETECTED: .PDF")
         shutil.move(fd_join, "/workspaces/advos1/assignments")
+        data_log()
+        logging.warning(".pdf file detected")
         return
+    
     elif ex_path == ".docx": 
         print("FILE DETECTED: .DOCX")
         shutil.move(fd_join, "/workspaces/advos1/assignments")
+        data_log()
+        logging.warning(".docx file detected")
         return
+    
     else:
         print("FILE DETECTED NOT PDF OR DOCX, TRY AGAIN!!!")
-
+        data_log()
+        logging.warning("Invalid File")
 
 
 
@@ -106,13 +135,19 @@ def exmd1():
     ex1 = input("Do you wish to exit? Press Y or N: ").lower() #uses both case of Y/y or N/n
     if ex1 == "y":
         print("Simulation exit")
+        data_log()
+        logging.warning("User Exited System")
         quit() #Quits program (run again to start simulation)        
 
     elif ex1== "n":
         print("Continue simulation")
+        data_log()
+        logging.warning("System continues")
         main_menu()
     else:
         print("Please enter Y or N")
+        data_log()
+        logging.warning("User input invalid")
         exmd1()
 
 #Main menu 
