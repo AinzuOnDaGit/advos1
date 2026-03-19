@@ -22,9 +22,12 @@ def asgn1():
         shutil.move(full_path, "/workspaces/advos1/assignments") #Moving the existed file into a folder
         data_log()
         logging.warning("Work submitted")
+
+
     #If file doesn't exist, Message invalid choice
     else: 
         print("File not existed")
+
         #If file not uploaded in folder
         file_create = input("Press Y to create file to be uploaded: ").lower()
         if file_create == "y":
@@ -32,11 +35,11 @@ def asgn1():
             with open(full_path, "w") as f:
                 f.write("")
             print("File has been submitted")
-            shutil.move(full_path, "/workspaces/advos1/assignments")
+            shutil.move(full_path, "/workspaces/advos1/")
             print("Assignment submitted")
 
             data_log()
-            logging.warning("FIle uploade and submitted")
+            logging.warning("FIle uploaded and submitted")
 
         else:
             print("Submission Failed")
@@ -60,10 +63,29 @@ def file_detect(): #Detection file
     path_content = "/workspaces/advos1/assignments"
 
     fd_join = os.path.join(fdpath, fdcheck) 
-
     ex_path = os.path.splitext(fd_join)[1].lower() #ex1 = existing file [1] using the .pdf/docx
     
 
+    #If file doesn't exist on folder
+    if not os.path.isfile(fd_join):
+        print("FILE DOES NOT EXIST, TRY AGAIN")     
+        return
+    
+    #If the file does not detect pdf or docx 
+    if ex_path not in [".pdf", ".docx"]:
+        print("FILE DETECTED NOT PDF OR DOCX, TRY AGAIN!!!")
+        data_log()
+        logging.warning("Invalid File")
+        return    
+    
+    # File If copied the same
+    fd_join2 = os.path.join(path_content, os.path.basename(fd_join)) #Basename detecting file name on the folder
+    if os.path.exists(fd_join2) == True:
+        print("ERROR!!! File has same name, send again")
+        data_log()
+        logging.warning("Existed File in Folder")
+        return
+        
     #Detection of file content in Assignment folder
     for ex2_file in os.listdir(path_content): #Ex2 = existing content
         ex_content1 = os.path.join(path_content, ex2_file)
@@ -74,22 +96,9 @@ def file_detect(): #Detection file
                 data_log()
                 logging.warning("Duplicate file content detected")
                 return
-
-
-
-    # File If copied the same
-    if os.path.isfile(fd_join):
-        print("ERROR!!! File has same name, send again")
-        data_log()
-        logging.warning("Existed File in Folder")
-        return
     
+       
 
-    #If file doesn't exist on folder
-    if not os.path.isfile(fd_join):
-        print("FILE DOES NOT EXIST, TRY AGAIN")     
-        return
-    
 
     #Detection of file size (Must be lower than 5MB)
     if os.path.isfile(fd_join):
@@ -99,27 +108,18 @@ def file_detect(): #Detection file
             print("FILE SIZE LARGE, Must be lower than 5MB")
             return
 
-
     # DETECTION IF FILE IS PDF OR DOCX 
     if ex_path == ".pdf": 
         print("FILE DETECTED: .PDF")
-        shutil.move(fd_join, "/workspaces/advos1/assignments")
         data_log()
         logging.warning(".pdf file detected")
-        return
-    
+
     elif ex_path == ".docx": 
         print("FILE DETECTED: .DOCX")
-        shutil.move(fd_join, "/workspaces/advos1/assignments")
         data_log()
         logging.warning(".docx file detected")
-        return
     
-    else:
-        print("FILE DETECTED NOT PDF OR DOCX, TRY AGAIN!!!")
-        data_log()
-        logging.warning("Invalid File")
-
+    shutil.move(fd_join, "/workspaces/advos1/assignments")
 
 
 def log1(num=3):
