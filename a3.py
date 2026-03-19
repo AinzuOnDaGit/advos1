@@ -24,9 +24,25 @@ def asgn1():
         logging.warning("Work submitted")
     #If file doesn't exist, Message invalid choice
     else: 
-        print("Invalid, Try again")
-        data_log()
-        logging.warning("File not submitted")
+        print("File not existed")
+        #If file not uploaded in folder
+        file_create = input("Press Y to create file to be uploaded: ").lower()
+        if file_create == "y":
+            #W used as Write file
+            with open(full_path, "w") as f:
+                f.write("")
+            print("File has been submitted")
+            shutil.move(full_path, "/workspaces/advos1/assignments")
+            print("Assignment submitted")
+
+            data_log()
+            logging.warning("FIle uploade and submitted")
+
+        else:
+            print("Submission Failed")
+            data_log()
+            logging.warning("File unsubmitted")
+        
 
 
 def asgn2(): #Check all submission
@@ -128,7 +144,7 @@ def log1(num=3):
             time.sleep(60)
             data_log()
             logging.warning("Login Attempt Failed")
-            sys.exit #System code quits when login failed
+            sys.exit() #System code quits when login failed
 
 #Exit Function
 def exmd1():
@@ -137,7 +153,7 @@ def exmd1():
         print("Simulation exit")
         data_log()
         logging.warning("User Exited System")
-        quit() #Quits program (run again to start simulation)        
+        sys.exit() #Quits program (run again to start simulation)        
 
     elif ex1== "n":
         print("Continue simulation")

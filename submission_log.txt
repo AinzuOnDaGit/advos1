@@ -5,3 +5,10 @@
 2026-03-17 13:19:03,107 Existed File in Folder
 2026-03-17 13:19:29,836 Existed File in Folder
 2026-03-17 13:41:39,888 Duplicate file content detected
+2026-03-17 15:23:01,340 FIle uploade and submitted
+2026-03-17 15:54:15,280 Work submitted
+2026-03-17 15:57:21,287 FIle uploade and submitted
+2026-03-17 16:09:03,195 User Exited System
+2026-03-17 16:09:15,876 User Exited System
+2026-03-17 16:10:35,390 Login Attempt Failed
+2026-03-17 16:13:47,841 Login Attempt success
