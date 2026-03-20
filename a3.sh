@@ -92,9 +92,10 @@ file_detect(){
 
     #Detecting size of file
     size_file=$(stat -c%s "$fd_join") 
-    if [[ "$size_file" -gt 5000000 ]]; then
+    if (("$size_file" > 5000000 )); then
         echo "File LARGE!!! Try again"
         data_log "Large file detected"
+        return
     fi
     
     echo "File Detected" 
