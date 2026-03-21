@@ -74,7 +74,7 @@ file_detect(){
 
     if [[ -e "$existed_file" ]]; then
         echo "File already existed"
-        data_log "Duplicated File"
+        data_log "Duplicated File Name"
         return
     fi 
     
@@ -82,11 +82,10 @@ file_detect(){
     content_file=$(sha256sum "$fd_join" | awk '{print $1}')
 
     for content1 in "$AS1SUB_DIR"/*; do
-        if cmp -s "fd_join" "content1"; then
+        if cmp -s "$fd_join" "$content1"; then
 
             echo "Duplicated file content detected"
             data_log "Duplicated File content"
-
             return
     
         fi

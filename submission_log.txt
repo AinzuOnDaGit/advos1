@@ -85,3 +85,7 @@
 2026 -03 -21 13:52:12 File sent to submission
 2026 -03 -21 13:54:57 Large file detected
 2026 -03 -21 13:59:06 File sent to submission
+2026 -03 -21 14:14:05 File sent to submission
+2026 -03 -21 14:17:26 Duplicated File content
+2026 -03 -21 14:19:39 Duplicated File Name
+2026 -03 -21 14:21:04 Duplicated File content
