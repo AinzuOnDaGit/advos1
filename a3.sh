@@ -24,7 +24,7 @@ printf "%s %s\n" "$(date '+%Y -%m -%d %H:%M:%S')" "$msg" >> "submission_log.txt"
 
 asm1() { # Assignment submission function
 
-    read -rp "Submit assignment (Example: file.pdf): " a_file1
+    read -rp "Enter the name of the file, with the extension. Example: file1.pdf: " a_file1
     full_path="$BASE_DIR/$a_file1"
 
     if [[ -f "$full_path" ]]; then
@@ -40,6 +40,8 @@ asm1() { # Assignment submission function
             echo "File has been submitted"
             mv "$full_path" "$BASE_DIR"
             data_log "Work submitted"
+        else
+            echo "File failed to upload"
         fi
     fi
 }
@@ -67,7 +69,7 @@ file_detect(){
         data_log "Failed File type submission"
         return 
     fi
-
+    #If file duplicated and exist, file won't be sent
     existed_file="$AS1SUB_DIR/$(basename "$fd_check")"
 
     if [[ -e "$existed_file" ]]; then
@@ -80,14 +82,14 @@ file_detect(){
     content_file=$(sha256sum "$fd_join" | awk '{print $1}')
 
     for content1 in "$AS1SUB_DIR"/*; do
-        [[ -f "$content1" ]] || continue
-        ex1_content=$(sha256sum "$content1" | awk '{print $1}')
+        if cmp -s "fd_join" "content1"; then
+
+            echo "Duplicated file content detected"
+            data_log "Duplicated File content"
+
+            return
     
-    if [[ "$content_file" == "$ex1_content" ]]; then
-        echo "Duplicate file content detected"
-        data_log "Duplicated File Content"
-        return
-    fi
+        fi
     done
 
     #Detecting size of file
@@ -98,13 +100,11 @@ file_detect(){
         return
     fi
     
+    #If conditions has been met, file will be sent
     echo "File Detected" 
     data_log "File sent to submission"
     mv "$fd_join" "$AS1SUB_DIR"
 }
-
-
-
 
 
 #Log in simulation
@@ -118,6 +118,7 @@ lg1() {
         if [ $pass1 == "P455w0rd1!" ]; then
             echo "Access granted"
             data_log "Login sucess"
+            return
         else
             num=$((num - 1))
             echo "Wrong password $num tries left"
@@ -155,9 +156,9 @@ read -r -p "Select option: " choice
 case "$choice" in 
     1) asm1 ;; #Assignment
     2) file_check ;; #File checker
-    3) file_detect ;;
+    3) file_detect ;; #File detecting on PDF/DOCX and content
     4) lg1 ;; #Log in simulation
-    5) Exit ;;
+    5) Exit ;; #Exit system
     *) echo "Please try again" ;;
     esac
     echo
