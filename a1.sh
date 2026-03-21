@@ -3,12 +3,12 @@ echo "===============
 Data search
 ==============="
 print_menu() {
-    echo "PID"
-    echo "CPU"
-    echo "term1"
-    echo "disk"
-    echo "ArchiveLogs"
-    echo "Exit"
+    echo "1) PID"
+    echo "2) CPU"
+    echo "3) term1"
+    echo "4) Disk"
+    echo "5) ArchiveLogs"
+    echo "6) Exit"
 }
 
 

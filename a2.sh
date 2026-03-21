@@ -1,11 +1,11 @@
 #Menu for job pending and request 
 print_menu() {
-    echo "View Pending Job"
-    echo "Submit Job request"
-    echo "Job list"
-    echo "Job Queue"
-    echo "Completed Job"
-    echo "Exit"
+    echo "1) View Pending Job"
+    echo "2) Submit Job request"
+    echo "3) Job list"
+    echo "4) Job Queue"
+    echo "5) Completed Job"
+    echo "6) Exit"
 }
 
 
